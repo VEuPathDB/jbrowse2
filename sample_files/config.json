@@ -1,0 +1,51 @@
+{
+  "assemblies": [
+    {
+      "name": "PlasmoDB-61_Pfalciparum3D7_Genome",
+      "sequence": {
+        "type": "ReferenceSequenceTrack",
+        "trackId": "PlasmoDB-61_Pfalciparum3D7_Genome-ReferenceSequenceTrack",
+        "adapter": {
+          "type": "IndexedFastaAdapter",
+          "fastaLocation": {
+            "uri": "PlasmoDB-61_Pfalciparum3D7_Genome.fa",
+            "locationType": "UriLocation"
+          },
+          "faiLocation": {
+            "uri": "PlasmoDB-61_Pfalciparum3D7_Genome.fa.fai",
+            "locationType": "UriLocation"
+          }
+        }
+      }
+    }
+  ],
+  "configuration": {},
+  "connections": [],
+  "defaultSession": {
+    "name": "New Session"
+  },
+  "tracks": [
+    {
+      "type": "FeatureTrack",
+      "trackId": "sorted_PlasmoDB-61_Pfalciparum3D7.gff",
+      "name": "sorted_PlasmoDB-61_Pfalciparum3D7.gff",
+      "adapter": {
+        "type": "Gff3TabixAdapter",
+        "gffGzLocation": {
+          "uri": "sorted_PlasmoDB-61_Pfalciparum3D7.gff.gz",
+          "locationType": "UriLocation"
+        },
+        "index": {
+          "location": {
+            "uri": "sorted_PlasmoDB-61_Pfalciparum3D7.gff.gz.tbi",
+            "locationType": "UriLocation"
+          },
+          "indexType": "TBI"
+        }
+      },
+      "assemblyNames": [
+        "PlasmoDB-61_Pfalciparum3D7_Genome"
+      ]
+    }
+  ]
+}

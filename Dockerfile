@@ -1,6 +1,6 @@
 FROM nginx:latest
 
-#ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND noninteractive
 #RUN mkdir -p /usr/share/man/man1 /usr/share/man/man7
 
 # basic system dependencies

@@ -1,18 +1,36 @@
 # JBrowse2 Containerized Service
 
-To run this service using `docker run`, use:
+This project provides the capability to build a [JBrowse 2](https://jbrowse.org/jb2) docker image which can be run using `docker run` or `docker compose`.
 
-**How to build:**
+**Building Locally**
+
 ```
-docker build -t jbrowse2 .
-```
-**How to run:**
-```
-docker run --rm jbrowse2:latest
+> git clone git@github.com:VEuPathDB/jbrowse2.git
+> cd jbrowse2
+> docker build -t jbrowse2 .
 ```
 
-# Example of how to dynamically add tracks from inside the container
+**Building in Jenkins**
+
+The repo includes a Jenkinsfile that uses [pipelib](https://github.com/VEuPathDB/pipelib) to build the image and upload it to DockerHub
+
+**Configuration**
+
+The image depends on two environment variables to configure it.  See sample.env for sample values.
+
+- JBROWSE2_SERVER_PORT: port on which service should run
+- MACHINE_FILES_DIR: data directory on the parent system where track files and a JBrowse2 `config.json` file are located (see [JBrowse documentation](https://jbrowse.org/jb2/docs/))
+
+This repo contains a set of sample data files and a config.json file that points at them.
+
+**Starting the Container**
+
+The container can be run with either `docker run` or `docker compose`.
+
+To run with `docker run`:
 ```
-> jbrowse add-assembly PlasmoDB-61_Pfalciparum3D7_Genome.fa --load copy --out /usr/local/apache2/htdocs/
-> jbrowse add-track sorted_PlasmoDB-61_Pfalciparum3D7.gff.gz --load copy --out /usr/local/apache2/htdocs/
+> cp env.sample .env  # then edit .env to set appropriate values
+> set -a; . .env; set +a
+> docker run --rm jbrowse2:latest
 ```
+

@@ -23,11 +23,6 @@ RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash 
 ENV NODE_PATH $NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules
 ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
-# install AWS CLI
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
-    && unzip awscliv2.zip \
-    && ./aws/install
-
 # install JBrowse2
 RUN npm install -g @jbrowse/cli serve
 RUN jbrowse create --tag v2.6.3 jbrowse2

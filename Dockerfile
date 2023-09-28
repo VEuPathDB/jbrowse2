@@ -29,8 +29,8 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
     && ./aws/install
 
 # install JBrowse2
-RUN npm install -g @jbrowse/cli serve \
-    && jbrowse create jbrowse2
+RUN npm install -g @jbrowse/cli serve
+RUN jbrowse create --tag v2.6.3 jbrowse2
 
 # copy and run startup script
 COPY startup.sh .

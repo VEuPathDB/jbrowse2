@@ -38,4 +38,4 @@ To run with `docker compose`:
 
 If successful, you should be able to use JBrowse 2 in a web browser at http://localhost:8080
 
-If you are running docker-traefik, you should also be able to use JBrowse 2 at https://jbrowse2-dev.local.apidb.org
+If you are running docker-traefik, you should also be able to use JBrowse 2 at https://jbrowse2-dev.local.apidb.org:8443

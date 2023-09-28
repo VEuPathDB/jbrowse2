@@ -1,8 +1,10 @@
 # JBrowse2 Containerized Service
 
-This project provides the capability to build a [JBrowse 2](https://jbrowse.org/jb2) docker image which can be run using `docker run` or `docker compose`.
+This project provides the capability to build a [JBrowse 2](https://jbrowse.org/jb2) docker image which can be run using `docker compose`.
 
 **Building Locally**
+
+Note this will overwrite the latest 
 
 ```
 > git clone git@github.com:VEuPathDB/jbrowse2.git
@@ -18,19 +20,20 @@ The repo includes a Jenkinsfile that uses [pipelib](https://github.com/VEuPathDB
 
 The image depends on two environment variables to configure it.  See sample.env for sample values.
 
-- JBROWSE2_SERVER_PORT: port on which service should run
-- MACHINE_FILES_DIR: data directory on the parent system where track files and a JBrowse2 `config.json` file are located (see [JBrowse documentation](https://jbrowse.org/jb2/docs/))
+- JBROWSE2_SERVER_PORT: port on which service should run (defaults to 8080 if this value is not present)
+- MACHINE_FILES_DIR: data directory on the parent system where track files and a JBrowse2 `config.json` file are located
 
-This repo contains a set of sample data files and a config.json file that points at them.
+The track files and config.json must be generated in advance.  See [JBrowse documentation](https://jbrowse.org/jb2/docs/)) for what file types are supported and the format of the config.json file.
 
-**Starting the Container**
+**Starting the Container with Docker Compose**
 
-The container can be run with either `docker run` or `docker compose`.
+A docker-compose.yml file is included to support compose stack deployment.
 
-To run with `docker run`:
+To run with `docker compose`:
 ```
 > cp env.sample .env  # then edit .env to set appropriate values
-> set -a; . .env; set +a
-> docker run --rm jbrowse2:latest
+> docker compose up
 ```
 
+If successful, you should be able to use JBrowse 2 in a web browser at http://localhost:8080
+If you are running docker-traefik, you should also be able to use JBrowse 2 at https://jbrowse2-dev.local.apidb.org

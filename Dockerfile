@@ -1,3 +1,6 @@
+# Based on the GMOD project sample Dockerfile here:
+#   https://github.com/GMOD/jbrowse_docker/blob/main/Dockerfile.jb2_env
+
 FROM nginx:latest
 
 ENV DEBIAN_FRONTEND noninteractive

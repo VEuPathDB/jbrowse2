@@ -3,7 +3,13 @@ version: "3.5"
 services:
 
   jbrowse2:
-    image: jbrowse2:${JBROWSE2_TAG:-latest}
+    image: ${JBROWSE2_IMAGE_NAME:-veupathdb/jbrowse2}:${JBROWSE2_TAG:-latest}
+
+    networks:
+      internal:
+      external:
+      monitoring-ext:
+      traefik:
 
     volumes:
       - type: bind
@@ -23,19 +29,19 @@ services:
       SERVICE_FILES_MOUNT: ${SERVICE_FILES_MOUNT:-/data}
 
     labels:
-    - "com.centurylinklabs.watchtower.enable=${JBROWSE2_WATCHTOWER:-false}"
-    - "traefik.http.services.${TRAEFIK_JBROWSE2_ROUTER:-jbrowse2-dev}.loadbalancer.server.port=${JBROWSE2_SERVER_PORT:-8080}"
-    - "traefik.http.routers.${TRAEFIK_JBROWSE2_ROUTER:-jbrowse2-dev}.rule=Host(`${TRAEFIK_JBROWSE2_HOST:-jbrowse2-dev.local.apidb.org}`)"
-    - "traefik.http.routers.${TRAEFIK_JBROWSE2_ROUTER:-jbrowse2-dev}.tls=${USE_TRAEFIK_SSL:-true}"
-    - "traefik.http.routers.${TRAEFIK_JBROWSE2_ROUTER:-jbrowse2-dev}.entrypoints=${TRAEFIK_ENTRYPOINTS:-local}"
-    - "traefik.docker.network=traefik"
-
-    networks:
-      - internal
-      - traefik
+      - "com.centurylinklabs.watchtower.enable=${JBROWSE2_WATCHTOWER:-false}"
+      - "traefik.http.services.${TRAEFIK_JBROWSE2_ROUTER:-jbrowse2-dev}.loadbalancer.server.port=${JBROWSE2_SERVER_PORT:-8080}"
+      - "traefik.http.routers.${TRAEFIK_JBROWSE2_ROUTER:-jbrowse2-dev}.rule=Host(`${TRAEFIK_JBROWSE2_HOST:-jbrowse2-dev.local.apidb.org}`)"
+      - "traefik.http.routers.${TRAEFIK_JBROWSE2_ROUTER:-jbrowse2-dev}.tls=${USE_TRAEFIK_SSL:-true}"
+      - "traefik.http.routers.${TRAEFIK_JBROWSE2_ROUTER:-jbrowse2-dev}.entrypoints=${TRAEFIK_ENTRYPOINTS:-local}"
+      - "traefik.docker.network=traefik"
 
 networks:
-  internal:
-    external: false
+  # external network used for containers that need to reach outside
+  external:
   traefik:
+    external: true
+  internal:
+    internal: true
+  monitoring-ext:
     external: true

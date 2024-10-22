@@ -3,14 +3,9 @@
 
 FROM nginx:latest
 
-ENV DEBIAN_FRONTEND noninteractive
-#RUN mkdir -p /usr/share/man/man1 /usr/share/man/man7
-
 # basic system dependencies
 RUN apt-get -qq update --fix-missing \
     && apt-get --no-install-recommends -y install zip unzip wget curl software-properties-common git build-essential zlib1g-dev libpng-dev perl-doc ca-certificates libjson-perl samtools tabix
-
-#    && curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
 
 # install nvm/node/npm
 ENV NVM_DIR /root/.nvm

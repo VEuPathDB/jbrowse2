@@ -34,5 +34,4 @@ runConfigRefresherThread() {
 runConfigRefresherThread &
 
 echo "Starting up node server on port $JBROWSE2_SERVER_PORT"
-cd ..
-npx serve -S -p $JBROWSE2_SERVER_PORT jbrowse2
+npx serve -S -p $JBROWSE2_SERVER_PORT .

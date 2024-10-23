@@ -24,7 +24,7 @@ if [ "$filesDir" == "" ]; then
   filesDir="/var/www/Common/apiSiteFilesMirror/webServices"
 fi
 
-outFile=$(pwd)/config.json2
+outFile=$(pwd)/config.json
 
 cd "$filesDir"
 
@@ -98,7 +98,6 @@ for tbiPath in $(ls ./*/build-${build}/*/nrProteinsToGenomeAlign/result.sorted.g
   comma=","
 done
 
-comma=
 for tbiPath in $(ls ./*/build-${build}/*/gff/annotated_transcripts.gff.gz.tbi | grep -v "^\./EuPathDB" | grep -v "^\./VEuPathDB"); do
   echo "Processing $tbiPath"
   gzPath=$(echo $tbiPath | sed 's/\.tbi//')

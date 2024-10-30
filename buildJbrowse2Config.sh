@@ -51,7 +51,7 @@ assemblyTemplate='%s{
 }'
 
 comma=
-for faiPath in $(ls ./*/build-${build}/*/fasta/*.fai | grep -v "^\./EuPathDB" | grep -v "^\./VEuPathDB"); do
+for faiPath in $(ls ./*/build-${build}/*/fasta/genome.fasta.fai | grep -v "^\./EuPathDB" | grep -v "^\./VEuPathDB"); do
   echo "Processing $faiPath"
   fastaPath=$(echo $faiPath | sed 's/\.fai//')
   namePath=$(echo $fastaPath | sed 's/\.fasta//')

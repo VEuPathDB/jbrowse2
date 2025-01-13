@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+trap gracefulShutdown EXIT 1 2 3 6 9 15 SIGTERM
+
 # clean up jbrowse2 raw installation
 cd jbrowse2
 rm -rf test_data
@@ -31,7 +33,32 @@ runConfigRefresherThread() {
     sleep $CONFIG_JSON_CHECK_INTERVAL_SECS
   done
 }
+
+gracefulShutdown() {
+    log=/opt/logs/exit-catch.log
+    echo ""
+    echo "Found nginx PID to be: $(cat /var/run/nginx.pid)" > $log
+    echo "Shutting down nginx..." >> $log
+    /etc/init.d/nginx -s stop >> $log
+    for attempts in $(seq 1 20); do
+	nginxPid=$(cat /var/run/nginx.pid 2>/dev/null)
+	echo "nginx PID = ${nginxPid}" >> $log
+	if [ -z "$nginxPid" ]; then
+	    echo "nginx gracefully shut down." >> $log
+	    exit 0
+	fi
+	sleep 2
+    done
+    echo "nginx shutdown will be forced." >> $log exit 1
+}
+
 runConfigRefresherThread &
 
-echo "Starting up node server on port $JBROWSE2_SERVER_PORT"
-npx serve -S -p $JBROWSE2_SERVER_PORT .
+echo "hello" > /opt/logs/silly
+
+echo "Starting up nginx"
+#npx serve -S -p $JBROWSE2_SERVER_PORT .
+/etc/init.d/nginx start \
+&& echo "nginx running..." \
+&& tail -f /dev/null & wait ${!}
+

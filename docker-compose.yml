@@ -3,7 +3,8 @@ version: "3.5"
 services:
 
   jbrowse2:
-    image: ${JBROWSE2_IMAGE_NAME:-veupathdb/jbrowse2}:${JBROWSE2_TAG:-latest}
+#    image: ${JBROWSE2_IMAGE_NAME:-veupathdb/jbrowse2}:${JBROWSE2_TAG:-latest}
+    image: ${JBROWSE2_IMAGE_NAME:-jbrowse2}:${JBROWSE2_TAG:-latest}
 
     networks:
       internal:
@@ -16,6 +17,9 @@ services:
         source: ${MACHINE_FILES_DIR:-/var/www/Common/apiSiteFilesMirror/webServices}
         target: ${SERVICE_FILES_MOUNT:-/data}
         read_only: true
+      - type: bind
+        source: ${LOGS_DIR:-${DATA_STORAGE_ROOT_DIR}/logs}
+        target: ${LOGS_MOUNT:-/opt/logs}
 
     environment:
 

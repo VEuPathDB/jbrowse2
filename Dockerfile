@@ -1,7 +1,7 @@
 # Based on the GMOD project sample Dockerfile here:
 #   https://github.com/GMOD/jbrowse_docker/blob/main/Dockerfile.jb2_env
 
-FROM nginx:latest
+FROM nginx:1.27.3
 
 # basic system dependencies
 RUN apt-get -qq update --fix-missing \
@@ -24,6 +24,12 @@ ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 # install JBrowse2
 RUN npm install -g @jbrowse/cli serve
 RUN jbrowse create --tag v2.6.3 jbrowse2
+
+COPY conf conf
+RUN /usr/bin/pwd
+
+#RUN cp /opt/conf/nginx.conf /etc/nginx/nginx.conf
+#RUN cp /opt/conf/nginx.default.conf /etc/nginx/conf.d/default.conf
 
 # copy and run startup script
 COPY startup.sh .

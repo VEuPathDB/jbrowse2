@@ -1,0 +1,54 @@
+server {
+    listen ${JBROWSE2_SERVER_PORT};
+    server_name _;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # Track data is served from the read-only mount under a stable path, so a
+    # config.json can name `/data/<org>.synteny.gff3.gz` and be correct in every
+    # deployment. The previous container rewrote every `uri` with sed instead,
+    # which could not tell a relative path from an absolute one.
+    location /data/ {
+        alias ${SERVICE_FILES_MOUNT}/;
+
+        # Tabix, BAM and CRAM are read by byte range. nginx serves ranges by
+        # default, but only on a response it has not transformed -- gzip would
+        # silently disable them, and the failure looks like corrupt index data
+        # rather than a server setting.
+        gzip off;
+        add_header Accept-Ranges bytes;
+
+        # These are already compressed; naming them keeps a helpful proxy or
+        # browser from trying to decompress them on the way through.
+        types {
+            application/gzip gz bgz;
+            application/octet-stream bam cram bai crai csi tbi fai 2bit bw bigwig;
+            text/plain txt fa fasta gff gff3 bed vcf;
+        }
+    }
+
+    # The app shell. Hashed assets can be cached hard; index.html and the config
+    # must not be, or a refreshed config.json never reaches a returning user.
+    location ~* \.(js|css|woff2?|png|svg|jpg|gif)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    location = /config.json {
+        add_header Cache-Control "no-store";
+    }
+
+    location = /index.html {
+        add_header Cache-Control "no-store";
+    }
+
+    location = /build-info.txt {
+        default_type text/plain;
+        add_header Cache-Control "no-store";
+    }
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}

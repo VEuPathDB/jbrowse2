@@ -44,3 +44,8 @@ To run JBrowse (in your original terminal), execute:
 ```
 
 If successful, you should be able to use JBrowse 2 in a web browser at https://jbrowse2-dev.local.apidb.org:8443
+
+## Migration documentation ##
+
+Status, decisions and notes for the JBrowse 5 migration live in
+[VEuPathDB/agentic-project-management](https://github.com/VEuPathDB/agentic-project-management/tree/main/jbrowse5-migration).

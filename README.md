@@ -44,3 +44,12 @@ To run JBrowse (in your original terminal), execute:
 ```
 
 If successful, you should be able to use JBrowse 2 in a web browser at https://jbrowse2-dev.local.apidb.org:8443
+
+## Migration documentation ##
+
+Notes from the JBrowse 2/5 migration work live in [`docs/`](docs/):
+
+- [STATUS.md](docs/STATUS.md) — the workstreams, what is done and what is blocked
+- [ARCHITECTURE-NOTES.md](docs/ARCHITECTURE-NOTES.md) — deployment shape, auth, plugins, track config at scale
+- [APOLLO-ON-JBROWSE5.md](docs/APOLLO-ON-JBROWSE5.md) — Apollo3 compatibility findings
+- [MIGRATION-NOTES.md](docs/MIGRATION-NOTES.md) — what changed in the JBrowse 5 container sketch, and why

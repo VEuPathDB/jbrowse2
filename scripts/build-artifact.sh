@@ -96,6 +96,19 @@ jq '{plugins: [.plugins[] | {name, url: ("plugins/" + .file)}]}' "$manifest" > "
   echo "jbrowse2_tree: $tree_state"
 } > "$app/build-info.txt"
 
+# VEuPathDB sites strip a 32-char "fingerprint" from asset URLs, so any path it
+# matches would be served under a different name and 404. UrlRewriteFilter's
+# <from> is case-insensitive by default, hence -i.
+fingerprint_rule='-.{32}\.(ico|js|css|jpeg|jpg|gif|png)$'
+mapfile -t offenders < <(cd "$stage" && find jbrowse5 -type f | LC_ALL=C sort | grep -iE -- "$fingerprint_rule" || true)
+if [ ${#offenders[@]} -gt 0 ]; then
+  echo "error: these paths match the site's asset-fingerprint rewrite and would 404 on a VEuPathDB site" >&2
+  echo "  rule: EbrcWebsiteCommon/Site/webapp/WEB-INF/urlrewrite.xml:101 (\"Resolve assets\"): ^(.*)-.{32}\\.(ico|js|css|jpeg|jpg|gif|png)\$" >&2
+  printf '  %s\n' "${offenders[@]}" >&2
+  echo "  rename them (for a plugin, its \"file\" in build-manifest.json)" >&2
+  exit 1
+fi
+
 tar --sort=name --format=gnu \
     --mtime="@$commit_epoch" \
     --owner=0 --group=0 --numeric-owner \

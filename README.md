@@ -56,6 +56,11 @@ tar -xzf dist/jbrowse5-0.0.0-dev.tar.gz -C /tmp && npx serve --cors /tmp/jbrowse
 
 ## Releasing
 
+The artifact has its own semver, independent of the JBrowse version it
+contains. The first release is `v0.1.0`, and versions stay below 1.0 while
+JBrowse 5 is in beta. `build-info.txt` records which JBrowse and plugins a
+given version contains.
+
 Push a `v*` tag. `.github/workflows/release.yml` checks the tag out, runs
 `scripts/build-artifact.sh <tag without v>`, and attaches the tarball and its
 `.sha256` to the tag's GitHub release, creating the release if needed. A version

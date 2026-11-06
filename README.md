@@ -34,6 +34,25 @@ Every input is pinned here and nowhere else:
 To add a plugin, add one entry to `plugins`. To bump JBrowse or a plugin,
 change its `url` and `sha256`.
 
+### File names a VEuPathDB site can serve
+
+The WDK webapp strips cache-busting fingerprints from asset URLs
+(`EbrcWebsiteCommon/Site/webapp/WEB-INF/urlrewrite.xml`, rule "Resolve
+assets"):
+
+```
+^(.*)-.{32}\.(ico|js|css|jpeg|jpg|gif|png)$   ->   $1.$2
+```
+
+Any file whose name has a `-` exactly 33 characters before the extension
+gets served under a different name and 404s. Plugin release assets are
+often named like this, for example
+`jbrowse-plugin-subtrack-renderer-1.0.0-beta.18.umd.production.min.js`. That's
+why `file` can differ from the asset's own name. The build fails, listing
+every offending path, if anything under `jbrowse5/` matches the rule
+(case-insensitive, as the rewrite filter applies it). If that happens, pick a
+different `file`.
+
 ## Building locally
 
 ```bash

@@ -9,7 +9,7 @@
       "name": "SubtrackRenderer",
       "url": "https://github.com/VEuPathDB/jbrowse-plugin-subtrack-renderer/releases/download/v1.0.0-beta.18/jbrowse-plugin-subtrack-renderer-1.0.0-beta.18.umd.production.min.js",
       "sha256": "a8af0b7cbe26a6630f32eb09449935b4378b1794c1e665722e064e487a9e0e64",
-      "file": "jbrowse-plugin-subtrack-renderer-1.0.0-beta.18.umd.production.min.js"
+      "file": "jbrowse-plugin-subtrack-renderer-1.0.0-beta.18.js"
     }
   ]
 }

@@ -2,3 +2,5 @@
 *~
 .env
 .project
+/build/
+/dist/

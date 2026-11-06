@@ -1,0 +1,62 @@
+name: release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing tag to build and publish (e.g. v1.2.3)
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ inputs.tag || github.ref_name }}
+    steps:
+      - name: Validate tag
+        run: |
+          case "$TAG" in
+            v?*) ;;
+            *) echo "::error::tag '$TAG' must start with 'v'"; exit 1 ;;
+          esac
+
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ env.TAG }}
+
+      - name: Build artifact
+        id: build
+        run: |
+          version="${TAG#v}"
+          scripts/build-artifact.sh "$version"
+          echo "tarball=jbrowse5-${version}.tar.gz" >> "$GITHUB_OUTPUT"
+          if [[ "$version" == *-* ]]; then
+            echo "prerelease=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "prerelease=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish to GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARBALL: ${{ steps.build.outputs.tarball }}
+          PRERELEASE: ${{ steps.build.outputs.prerelease }}
+        run: |
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            gh release edit "$TAG" --prerelease="$PRERELEASE"
+          else
+            flags=()
+            [ "$PRERELEASE" = true ] && flags+=(--prerelease)
+            gh release create "$TAG" --verify-tag --title "$TAG" --generate-notes "${flags[@]}"
+          fi
+          gh release upload "$TAG" "dist/$TARBALL" "dist/$TARBALL.sha256" --clobber

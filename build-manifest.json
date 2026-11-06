@@ -1,0 +1,15 @@
+{
+  "jbrowse": {
+    "tag": "v5.0.0-beta.18",
+    "url": "https://github.com/GMOD/jbrowse-components/releases/download/v5.0.0-beta.18/jbrowse-web-v5.0.0-beta.18.zip",
+    "sha256": "664fa7051d41710d1b53c63e82b40256112e40566f6cfb9cc8b81f50387bd019"
+  },
+  "plugins": [
+    {
+      "name": "SubtrackRenderer",
+      "url": "https://github.com/VEuPathDB/jbrowse-plugin-subtrack-renderer/releases/download/v1.0.0-beta.18/jbrowse-plugin-subtrack-renderer-1.0.0-beta.18.umd.production.min.js",
+      "sha256": "a8af0b7cbe26a6630f32eb09449935b4378b1794c1e665722e064e487a9e0e64",
+      "file": "jbrowse-plugin-subtrack-renderer-1.0.0-beta.18.umd.production.min.js"
+    }
+  ]
+}

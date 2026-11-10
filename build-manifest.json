@@ -10,6 +10,12 @@
       "url": "https://github.com/VEuPathDB/jbrowse-plugin-subtrack-renderer/releases/download/v1.0.0-beta.18/jbrowse-plugin-subtrack-renderer-1.0.0-beta.18.umd.production.min.js",
       "sha256": "a8af0b7cbe26a6630f32eb09449935b4378b1794c1e665722e064e487a9e0e64",
       "file": "jbrowse-plugin-subtrack-renderer-1.0.0-beta.18.js"
+    },
+    {
+      "name": "VEuPathDBDisplay",
+      "url": "https://github.com/VEuPathDB/jbrowse-plugin-veupathdb-display/releases/download/v0.1.1-beta.18/jbrowse-plugin-veupathdb-display-0.1.1-beta.18.umd.production.min.js",
+      "sha256": "a748ed3dc5eec5d426287bea060b87abcbadc13eec39fc33f37985933f36fc7c",
+      "file": "jbrowse-plugin-veupathdb-display-0.1.1-beta.18.js"
     }
   ]
 }

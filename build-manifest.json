@@ -13,9 +13,9 @@
     },
     {
       "name": "VEuPathDBDisplay",
-      "url": "https://github.com/VEuPathDB/jbrowse-plugin-veupathdb-display/releases/download/v0.1.1-beta.18/jbrowse-plugin-veupathdb-display-0.1.1-beta.18.umd.production.min.js",
-      "sha256": "a748ed3dc5eec5d426287bea060b87abcbadc13eec39fc33f37985933f36fc7c",
-      "file": "jbrowse-plugin-veupathdb-display-0.1.1-beta.18.js"
+      "url": "https://github.com/VEuPathDB/jbrowse-plugin-veupathdb-display/releases/download/v0.1.2-beta.18/jbrowse-plugin-veupathdb-display-0.1.2-beta.18.umd.production.min.js",
+      "sha256": "c8a4fce19524792d0c4968fac1d62d9659c23987df7e2a5974a14d4c3645b2ef",
+      "file": "jbrowse-plugin-veupathdb-display-0.1.2-beta.18.js"
     }
   ]
 }
